@@ -8,6 +8,8 @@ public class Game {
     private ArrayList<Card> hand;
 
     public ArrayList<Card> getHand(){ return hand; }
+
+    public ArrayList<Card> getDeck(){ return deck; }
     
     public void customDeck(int numOfNumbers, int numOfSuites){
         numbers = numOfNumbers;
@@ -15,7 +17,7 @@ public class Game {
     }
 
     public void shuffle(){
-        Boolean cardTable[][] = new Boolean[suites][numbers];
+        boolean cardTable[][] = new boolean[suites][numbers];
         int num, sui;
         
         for (int i = 0; i < numbers * suites; i++){
