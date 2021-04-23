@@ -1,4 +1,5 @@
 public class PokerGame {
+    private final int STARTING_POINTS = 200;
     private Game thisGame;
 
     PokerGame(){
