@@ -7,6 +7,8 @@ public class Game {
     private ArrayList<Card> deck;
     private ArrayList<Card> hand;
 
+    public ArrayList<Card> getHand(){ return hand; }
+    
     public void customDeck(int numOfNumbers, int numOfSuites){
         numbers = numOfNumbers;
         suites = numOfSuites;
@@ -36,5 +38,10 @@ public class Game {
     Game(){
         deck = new ArrayList<Card>();
         hand = new ArrayList<Card>();
+    }
+
+    public String toString(){
+        return "Deck: " + deck.size() + " cards, " + suites + " suites of " + numbers + 
+               " cards each.\n Hand: " + hand.size() + " cards";
     }
 }
