@@ -37,6 +37,15 @@ public class Game {
         }
     }
 
+    public void discard(int toDiscard[]){
+        int numOfCards = toDiscard.length;
+        for(int i = 0; i < numOfCards; i++){
+            deck.add(hand.get(toDiscard[i] - i));
+            hand.remove(toDiscard[i] - i);
+        }
+        deal(numOfCards);
+    }
+
     Game(){
         deck = new ArrayList<Card>();
         hand = new ArrayList<Card>();
