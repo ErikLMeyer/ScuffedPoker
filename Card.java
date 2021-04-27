@@ -23,6 +23,8 @@ public class Card {
 
     public int getHeight(){ return (int)(wide * 1.4); }
 
+    public void setWidth(int w){ wide = w; }
+
     public void setNumber(int n){ number = n; }
 
     public void setSuite(int s){ suite = s; }
@@ -35,6 +37,9 @@ public class Card {
     Card(int n, int s){
         setNumber(n);
         setSuite(s);
+        xPos = 0;
+        yPos = 0;
+        wide = 0;
     }
 
     private void drawSymbols(Graphics g, String symS, String symN, Color suiteColor){
