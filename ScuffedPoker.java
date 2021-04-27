@@ -1,4 +1,11 @@
 public class ScuffedPoker{
+
+    public static void printHand(Game g){
+        System.out.print("Hand: ");
+        for (int i = 0; i < g.getHand().size(); i++){
+            System.out.print(g.getHand().get(i) + "; ");
+        }
+    }
     public static void main(String args[]){
         System.out.println("Coming soon: Poker!");
 
@@ -12,16 +19,18 @@ public class ScuffedPoker{
         System.out.println(testGame);
 
         System.out.println("Printing cards in hand and deck.");
-        System.out.print("Hand: ");
-        for (int i = 0; i < testGame.getHand().size(); i++){
-            System.out.print(testGame.getHand().get(i) + "; ");
-        }
+        printHand(testGame);
 
-        System.out.print("\nDeck: ");
+        /* System.out.print("\nDeck: ");
         for (int i = 0; i < testGame.getDeck().size(); i++){
             System.out.print(testGame.getDeck().get(i) + "; ");
             if ((i + 1) % 5 == 0)
                 System.out.print("\n");
-        }
+        } */
+
+        System.out.println("\nDiscarding 2 cards.");
+        int throwOut[] = {1,4};
+        testGame.discard(throwOut);
+        printHand(testGame);
     }
 }
