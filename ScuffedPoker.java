@@ -22,6 +22,8 @@ class CardTestPanel extends JPanel{
         int panelWidth = getWidth();
         int panelHeight = getHeight();
         c.setWidth(panelWidth / 4);
+        c.setX(50);
+        c.setY(50);
 
         g.setColor(Color.GREEN);
         g.fillRect(0, 0, panelWidth, panelHeight);
@@ -65,14 +67,15 @@ public class ScuffedPoker{
         testGame.discard(throwOut);
         printHand(testGame);
 
-        System.out.println("\nPainting the card at hand position 3.");
-        JFrame testCardFrame = new JFrame();
+        System.out.println("\nPainting the game board.");
+        PokerFrame testCardFrame = new PokerFrame();
+        /* JFrame testCardFrame = new JFrame();
         testCardFrame.setTitle("Card");
         testCardFrame.setBounds(100, 100, 250, 350);
         testCardFrame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 
         Container cardPane = testCardFrame.getContentPane();
-        cardPane.add(new CardTestPanel(testGame.getHand().get(2)));
+        cardPane.add(new CardTestPanel(testGame.getHand().get(2))); */
 
         testCardFrame.setVisible(true);
     }
