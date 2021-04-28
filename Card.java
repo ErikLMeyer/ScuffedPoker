@@ -23,6 +23,10 @@ public class Card {
 
     public int getHeight(){ return (int)(wide * 1.4); }
 
+    public void setX(int x){ xPos = x; }
+
+    public void setY(int y){ yPos = y; }
+
     public void setWidth(int w){ wide = w; }
 
     public void setNumber(int n){ number = n; }
@@ -44,6 +48,7 @@ public class Card {
 
     private void drawSymbols(Graphics g, String symS, String symN, Color suiteColor){
         g.setColor(suiteColor);
+        // fix letter placements
         g.drawString(symS, xPos + (wide / 20), yPos + (wide / 20));
         g.drawString(symS, xPos + (wide - (wide / 20)), yPos + ((int)((wide * 1.4) - (wide / 20))));
         g.drawString(symN, xPos + (wide - (wide / 20)), yPos + (wide / 20));
@@ -74,7 +79,7 @@ public class Card {
 
     public void paintCardStandard(Graphics g){
         g.setColor(Color.WHITE);
-        g.fillRoundRect(xPos, yPos, wide, (int)(wide * 1.4), wide / 10, wide / 10);
+        g.fillRoundRect(xPos, yPos, wide, (int)(wide * 1.4), wide / 5, wide / 5);
         switch (suite){
             case 0:
                 drawSymbols(g, "S", getNumChar(), SPADES_AND_CLUBS);
