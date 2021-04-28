@@ -1,15 +1,38 @@
 import java.util.ArrayList;
 import java.lang.Math;
+import java.awt.*;
 
 public class Game {
     private int numbers;
     private int suites;
+    private int deckX, deckY, deckWidth;
     private ArrayList<Card> deck;
     private ArrayList<Card> hand;
+
+    public int getNumbers(){ return numbers; }
+
+    public int getSuites(){ return suites; }
+
+    public int getX(){ return deckX; }
+
+    public int getY(){ return deckY; }
+
+    public int getWidth(){ return deckWidth; }
+
+    public int getHeight(){ return (int)(deckWidth * 1.4); }
 
     public ArrayList<Card> getHand(){ return hand; }
 
     public ArrayList<Card> getDeck(){ return deck; }
+
+    public void setX(int x){ deckX = x; }
+
+    public void setY(int y){ deckY = y; }
+
+    /* Sets width of deck. There are no other dimension variables, as all are calculated based on 
+        the width of the deck.
+    */
+    public void setDimension(int width){ deckWidth = width; }
     
     public void customDeck(int numOfNumbers, int numOfSuites){
         numbers = numOfNumbers;
@@ -49,6 +72,11 @@ public class Game {
     Game(){
         deck = new ArrayList<Card>();
         hand = new ArrayList<Card>();
+    }
+
+    public void paintDeck(Graphics g){
+        g.setColor(Color.WHITE); // pick out a pretty pattern for back of cards
+        g.fillRoundRect(deckX, deckY, deckWidth, (int)(deckWidth * 1.4), deckWidth / 10, deckWidth / 10);
     }
 
     public String toString(){
