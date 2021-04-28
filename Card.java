@@ -79,7 +79,7 @@ public class Card {
 
     public void paintCardStandard(Graphics g){
         g.setColor(Color.WHITE);
-        g.fillRoundRect(xPos, yPos, wide, (int)(wide * 1.4), wide / 5, wide / 5);
+        g.fillRoundRect(xPos, yPos, wide, (int)(wide * 1.4), wide / 10, wide / 10);
         switch (suite){
             case 0:
                 drawSymbols(g, "S", getNumChar(), SPADES_AND_CLUBS);
