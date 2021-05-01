@@ -47,12 +47,19 @@ public class Card {
     }
 
     private void drawSymbols(Graphics g, String symS, String symN, Color suiteColor){
+        int topAlign = yPos + (wide / 7);
+        int leftAlign = xPos + (wide / 20);
+        int rightAlign = xPos + (wide - (wide / 7));
+        int bottomAlign = yPos + ((int)((wide * 1.4) - (wide / 20)));
         g.setColor(suiteColor);
-        // fix letter placements
-        g.drawString(symS, xPos + (wide / 20), yPos + (wide / 20));
-        g.drawString(symS, xPos + (wide - (wide / 20)), yPos + ((int)((wide * 1.4) - (wide / 20))));
-        g.drawString(symN, xPos + (wide - (wide / 20)), yPos + (wide / 20));
-        g.drawString(symN, xPos + (wide / 20), yPos + ((int)((wide * 1.4) - (wide / 20))));
+        // Top left
+        g.drawString(symS, leftAlign, topAlign);
+        // Bottom right
+        g.drawString(symS, rightAlign, bottomAlign);
+        // Top right
+        g.drawString(symN, rightAlign, topAlign);
+        // Bottom left
+        g.drawString(symN, leftAlign, bottomAlign);
     }
 
     private String getNumChar(){
