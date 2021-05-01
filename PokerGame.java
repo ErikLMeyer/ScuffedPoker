@@ -1,9 +1,6 @@
-public class PokerGame {
-    private Game thisGame;
+public class PokerGame extends Game{
     private int bank;
     private int bet;
-
-    public Game getGame(){ return thisGame; }
 
     public int getBank(){ return bank; }
 
@@ -13,19 +10,15 @@ public class PokerGame {
 
     public void setBet(int b){ bet = b; }
 
-    public void runGame(){
-        thisGame.shuffle();
-        // prompt user to place a bet
-        thisGame.deal(5);
-        // calculate winnings
-
+    PokerGame(int b){
+        super();
+        bank = b;
+        customDeck(13, 4);
+        shuffle();
+        deal(5);
     }
 
-    PokerGame(int b){
-        thisGame = new Game();
-        bank = b;
-        thisGame.customDeck(13, 4);
-        thisGame.shuffle();
-        thisGame.deal(5);
+    public String toString(){
+        return "Current funds: " + bank + "\nCurrent bet: " + bet;
     }
 }
