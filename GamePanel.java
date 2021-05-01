@@ -6,7 +6,6 @@ import java.util.ArrayList;
 
 public class GamePanel extends JPanel implements MouseListener{
     private PokerGame poker;
-    private Game game;
     private ArrayList<Boolean> drawBorder;
     private int handWidth, spacing, handX, handY;
     private int cardsInHand, cardsSelected;
@@ -33,15 +32,14 @@ public class GamePanel extends JPanel implements MouseListener{
         spacing = deckWidth;
 
         handX = deckX - (3 * deckWidth) + (2 * deckWidth / 5);
-        handY = deckY + game.getHeight() + spacing;
+        handY = deckY + poker.getHeight() + spacing;
     }
 
     public void setSpacing(int s){ spacing = s; }
 
     public GamePanel(){
         poker = new PokerGame(200);
-        game = poker.getGame();
-        cardsInHand = game.getHand().size();
+        cardsInHand = poker.getHand().size();
         drawBorder = new ArrayList<Boolean>();
         for (int i = 0; i < cardsInHand; i++){
             drawBorder.add(false);
@@ -53,17 +51,19 @@ public class GamePanel extends JPanel implements MouseListener{
     public void panelDiscard(){
         int toDiscard[] = new int[cardsSelected];
         int counter = 0;
-        System.out.print("From panel: to discard:");
         for( int i = 0; i < cardsInHand; i++){
             if (drawBorder.get(i)){
                 toDiscard[counter] = i;
-                System.out.print(" " + toDiscard[counter]);
                 counter++;
                 drawBorder.set(i, false);
             }
         }
-        game.discard(toDiscard);
+        poker.discard(toDiscard);
         cardsSelected = 0;
+    }
+
+    private int gameInfoY(Graphics g, int line){
+        return deckY + line * g.getFont().getSize();
     }
 
     public void paintComponent(Graphics g){
@@ -76,10 +76,10 @@ public class GamePanel extends JPanel implements MouseListener{
         g.setColor(Color.GREEN);
         g.fillRect(0, 0, panelWidth, panelHeight);
 
-        game.setDimension(deckWidth);
-        game.setX(deckX);
-        game.setY(deckY);
-        game.paintDeck(g);
+        poker.setDimension(deckWidth);
+        poker.setX(deckX);
+        poker.setY(deckY);
+        poker.paintDeck(g);
 
         /*
             draw some information to the side of the deck such as:
@@ -89,13 +89,18 @@ public class GamePanel extends JPanel implements MouseListener{
                 credit
                 how many hands to pay back credit
         */
+        int gameInfoX = deckX + deckWidth + (spacing / 5);
+        g.drawString("Current funds: " + poker.getBank(), gameInfoX, gameInfoY(g, 1));
+        g.drawString("Your bet: " + poker.getBet(), gameInfoX, gameInfoY(g, 2));
+        g.drawString("Credit: ", gameInfoX, gameInfoY(g, 5));
+        g.drawString("Hands until the mob breaks your legs: ", gameInfoX, gameInfoY(g, 6));
        
-        for (int i = 0; i < game.getHand().size(); i++){
+        for (int i = 0; i < cardsInHand; i++){
             int cardX = handX + (deckWidth * i) + (spacing * i);
-            game.getHand().get(i).setWidth(deckWidth);
-            game.getHand().get(i).setY(handY);
-            game.getHand().get(i).setX(cardX);
-            game.getHand().get(i).paintCardStandard(g);
+            poker.getHand().get(i).setWidth(deckWidth);
+            poker.getHand().get(i).setY(handY);
+            poker.getHand().get(i).setX(cardX);
+            poker.getHand().get(i).paintCardStandard(g);
             if (drawBorder.get(i)){
                 g.setColor(Color.RED);
                 g.drawRect(cardX - 1, handY - 1, deckWidth + 2, (int)(deckWidth * 1.4) + 2);
@@ -122,13 +127,6 @@ public class GamePanel extends JPanel implements MouseListener{
                     } else{
                         drawBorder.set(selectedCard, true);
                         cardsSelected++;
-                    }
-                    System.out.println("Number of cards selected: " + cardsSelected);
-                    System.out.print("Cards selected:");
-                    for (int i = 0; i < cardsInHand; i++){
-                        if(drawBorder.get(i)){
-                            System.out.print(" " + i);
-                        }
                     }
                     repaint();
                 }
