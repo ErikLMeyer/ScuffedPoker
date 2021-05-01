@@ -49,7 +49,7 @@ public class Game {
                 sui = (int)(Math.random() * suites);
             } while(cardTable[sui][num]);
             cardTable[sui][num] = true;
-            deck.add(new Card(num, sui));
+            deck.add(new Card(num + 1, sui));
         }
     }
 
