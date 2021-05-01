@@ -3,11 +3,11 @@ import java.lang.Math;
 import java.awt.*;
 
 public class Game {
-    private int numbers;
-    private int suites;
-    private int deckX, deckY, deckWidth;
-    private ArrayList<Card> deck;
-    private ArrayList<Card> hand;
+    protected int numbers;
+    protected int suites;
+    protected int deckX, deckY, deckWidth;
+    protected ArrayList<Card> deck;
+    protected ArrayList<Card> hand;
 
     public int getNumbers(){ return numbers; }
 
