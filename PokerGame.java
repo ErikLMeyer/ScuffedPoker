@@ -17,7 +17,6 @@ public class PokerGame {
         thisGame.shuffle();
         // prompt user to place a bet
         thisGame.deal(5);
-        // wait for user to select cards to discard
         // calculate winnings
 
     }
