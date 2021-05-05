@@ -10,6 +10,9 @@ public class GamePanel extends JPanel implements MouseListener{
     private int handWidth, spacing, handX, handY;
     private int cardsInHand, cardsSelected;
     private int deckX, deckY, deckWidth;
+    private boolean hasAccepted;
+
+    public PokerGame getGame(){ return poker; }
 
     public int gethWidth(){ return handWidth; }
 
@@ -25,6 +28,8 @@ public class GamePanel extends JPanel implements MouseListener{
 
     public int getDeckWidth(){ return deckWidth; }
 
+    public boolean getAccepted(){ return hasAccepted; }
+
     public void setCardWidthAndPosition(int w, int h){
         deckWidth = w / 12;
         deckX = w / 3;
@@ -37,14 +42,27 @@ public class GamePanel extends JPanel implements MouseListener{
 
     public void setSpacing(int s){ spacing = s; }
 
-    public GamePanel(){
-        poker = new PokerGame(200);
+    public void setAccepted(boolean b){ hasAccepted = b; }
+
+    private void newGame(int bank){
+        poker.setBank(bank);
+        poker.distribute();
         cardsInHand = poker.getHand().size();
         drawBorder = new ArrayList<Boolean>();
         for (int i = 0; i < cardsInHand; i++){
             drawBorder.add(false);
         }
+        repaint();
+    }
 
+    public void resetGame(){
+        poker.resetCards();
+        newGame(200);
+    }
+
+    public GamePanel(){
+        poker = new PokerGame(200);
+        hasAccepted = false;
         addMouseListener(this);
     }
 
@@ -60,6 +78,7 @@ public class GamePanel extends JPanel implements MouseListener{
         }
         poker.discard(toDiscard);
         cardsSelected = 0;
+        hasAccepted = true;
     }
 
     private int gameInfoY(Graphics g, int line){
