@@ -114,8 +114,7 @@ public class GamePanel extends JPanel implements MouseListener{
         int gameInfoX = deckX + deckWidth + (spacing / 5);
         g.drawString("Current funds: " + poker.getBank(), gameInfoX, gameInfoY(g, 1));
         g.drawString("Your bet: " + poker.getBet(), gameInfoX, gameInfoY(g, 2));
-        g.drawString("Credit: ", gameInfoX, gameInfoY(g, 5));
-        g.drawString("Hands until the mob breaks your legs: ", gameInfoX, gameInfoY(g, 6));
+        g.drawString("Credit: -" + poker.getCredit(), gameInfoX, gameInfoY(g, 5));
        
         for (int i = 0; i < cardsInHand; i++){
             int cardX = handX + (deckWidth * i) + (spacing * i);

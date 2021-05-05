@@ -1,5 +1,4 @@
 import javax.swing.*;
-import java.awt.*;
 
 public class ScuffedPoker{
     private static final String HAND_NAMES[] = {"nothing", "Jacks or Better", "Two Pairs",
@@ -116,13 +115,56 @@ public class ScuffedPoker{
         if (in == 1){
             System.exit(0);
         }
+        p.getPanel().getGame().setCredit(0);
         return true;
     }
 
+    public static boolean takeDebt(PokerFrame p){
+        boolean debtTaken = false;
+        boolean invalidInput = false;
+        int confirm = JOptionPane.showConfirmDialog(p, "Take out credit?", "Out of money",
+                                                    JOptionPane.YES_NO_OPTION);
+
+        if (confirm == JOptionPane.YES_OPTION){
+            int credit = 0;
+            do{
+                invalidInput = false;
+                try{
+                    String input = JOptionPane.showInputDialog(p, "Take out how much?", "Take credit",
+                                                        JOptionPane.PLAIN_MESSAGE);
+                    if (input != null){
+                        credit = Integer.parseInt(input);
+                    } else{
+                        return false;
+                    }
+                } catch(NumberFormatException e){
+                    JOptionPane.showMessageDialog(p, "Error: entry must be a number.", "Invalid entry", 
+                                                    JOptionPane.PLAIN_MESSAGE);
+                    invalidInput = true;
+                    continue;
+                }
+                if (credit <= 0){
+                    JOptionPane.showMessageDialog(p, "Must take out more than 0", 
+                                                    "Invalid bet", JOptionPane.PLAIN_MESSAGE);
+                    invalidInput = true;
+                }
+            } while(invalidInput);
+            p.getPanel().getGame().setCredit(credit);
+            p.getPanel().getGame().setBank(credit);
+            JOptionPane.showMessageDialog(p, "You have 10 hands to pay your debt.", "",
+                                            JOptionPane.PLAIN_MESSAGE);
+            debtTaken = true;
+        } else{
+            debtTaken = false;
+        }
+
+        return debtTaken;
+    }
+    
     public static void main(String args[]){
         PokerFrame testCardFrame = new PokerFrame();
-        /* int handCounter = 0;
-        boolean inDebt = false; */
+        int handCounter = 0;
+        boolean inDebt = false;
         testCardFrame.setVisible(true);
         while(true){
             if(!getBet(testCardFrame)){
@@ -146,10 +188,48 @@ public class ScuffedPoker{
             }
             testCardFrame.getPanel().setAccepted(false);
             calcWin(testCardFrame);
-            if(testCardFrame.getPanel().getGame().getBank() <= 0){
-                if (exit_continue(testCardFrame)){
-                    testCardFrame.getPanel().resetGame(true);
-                    continue;
+            int bank = testCardFrame.getPanel().getGame().getBank();
+            int credit = testCardFrame.getPanel().getGame().getCredit();
+            if (inDebt){
+                if (bank >= credit * 2){
+                    handCounter = 0;
+                    if (bank - credit * 2 == 0){
+                        if(!takeDebt(testCardFrame)){
+                            if (exit_continue(testCardFrame)){
+                                testCardFrame.getPanel().resetGame(true);
+                                continue;
+                            }
+                        }
+                    } else{
+                        testCardFrame.getPanel().getGame().setBank(bank - credit);
+                        testCardFrame.getPanel().getGame().setCredit(0);
+                        inDebt = false;
+                        continue;
+                    }
+                }
+                if(handCounter > 10){
+                    if (exit_continue(testCardFrame)){
+                        testCardFrame.getPanel().resetGame(true);
+                        continue;
+                    }
+                }
+                handCounter++;
+            }
+            if(bank <= 0){
+                if (!inDebt){
+                    if(!takeDebt(testCardFrame)){
+                        if (exit_continue(testCardFrame)){
+                            testCardFrame.getPanel().resetGame(true);
+                            continue;
+                        }
+                    } else{
+                        inDebt = true;
+                    }
+                } else{
+                    if (exit_continue(testCardFrame)){
+                        testCardFrame.getPanel().resetGame(true);
+                        continue;
+                    }
                 }
             }
         }

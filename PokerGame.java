@@ -1,5 +1,3 @@
-import java.util.*;
-
 public class PokerGame extends Game{
     private int bank;
     private int bet;
@@ -100,7 +98,7 @@ public class PokerGame extends Game{
         if (pairs == 0){
             if (triple){ return 3; } // Three of a kind
             if (four){ return 7; } // Four of a kind
-            return (isStraight(nums) == 1) ? 4 : 0; // Straight or nothing
+            return (isStraight(nums) >= 1) ? 4 : 0; // Straight or nothing
         } else{
             if (pairs > 1){
                 return 2; // Two pair
