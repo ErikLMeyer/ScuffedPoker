@@ -8,6 +8,14 @@ public class PokerFrame extends JFrame implements ActionListener{
     private JMenu gameOptions, displayOptions;
     private JMenuItem newGame, exitGame;
     private Container pokerContainer;
+    private boolean reset;
+
+    // returns true if game should reset
+    public boolean getReset(){ return reset; }
+
+    public GamePanel getPanel(){ return poker; }
+
+    public void setReset(boolean r){ reset = r; }
 
     PokerFrame(){
         setTitle("Scuffed Poker");
@@ -34,14 +42,14 @@ public class PokerFrame extends JFrame implements ActionListener{
     }
 
     public void actionPerformed(ActionEvent e) {
-        /*
+        
         if (e.getSource() == newGame){
-            reset bank and start a new game
+            poker.resetGame();
+            reset = true;
         }
         if (e.getSource() == exitGame){
-            close program. Set bounds to current values?
+            System.exit(0);
         }
-        */
     }
 
 
