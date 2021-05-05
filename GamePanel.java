@@ -44,8 +44,7 @@ public class GamePanel extends JPanel implements MouseListener{
 
     public void setAccepted(boolean b){ hasAccepted = b; }
 
-    private void newGame(int bank){
-        poker.setBank(bank);
+    private void newGame(){
         poker.distribute();
         cardsInHand = poker.getHand().size();
         drawBorder = new ArrayList<Boolean>();
@@ -55,9 +54,12 @@ public class GamePanel extends JPanel implements MouseListener{
         repaint();
     }
 
-    public void resetGame(){
+    public void resetGame(boolean newBank){
         poker.resetCards();
-        newGame(200);
+        newGame();
+        if (newBank){
+            poker.setBank(200);
+        }
     }
 
     public GamePanel(){

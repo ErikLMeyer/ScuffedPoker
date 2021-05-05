@@ -23,6 +23,15 @@ public class Game {
 
     public ArrayList<Card> getHand(){ return hand; }
 
+    public void setHand(ArrayList<Card> c){
+        int counter = 0;
+        hand.clear();
+        for (Card card: c){
+            hand.add(counter, card);
+            counter++;
+        }
+    }
+
     public ArrayList<Card> getDeck(){ return deck; }
 
     public void setX(int x){ deckX = x; }

@@ -32,31 +32,76 @@ public class ScuffedPoker{
                                                 "Invalid bet", JOptionPane.PLAIN_MESSAGE);
                 invalidInput = true;
             }
+            if (bet <= 0){
+                JOptionPane.showMessageDialog(p, "Bets must be greater than 0.", 
+                                                "Invalid bet", JOptionPane.PLAIN_MESSAGE);
+                invalidInput = true;
+            }
         } while(invalidInput);
         p.getPanel().getGame().setBet(bet);
         p.getPanel().getGame().setBank(bank - bet);
     }
 
+    public static void calcWin(PokerFrame p){
+        int result = p.getPanel().getGame().scanHand();
+        int bank = p.getPanel().getGame().getBank();
+        int bet = p.getPanel().getGame().getBet();
+        int winnings = 0;
+        switch(result){
+            case 0:
+                winnings = bank;
+                break;
+            case 1:
+                winnings = bank + bet;
+                break;
+            case 2:
+                winnings = bank + 2 * bet;
+                break;
+            case 3:
+                winnings = bank + 3 * bet;
+                break;
+            case 4:
+                winnings = bank + 4 * bet;
+                break;
+            case 5:
+                winnings = bank + 6 * bet;
+                break;
+            case 6:
+                winnings = bank + 9 * bet;
+                break;
+            case 7:
+                winnings = bank + 25 * bet;
+                break;
+            case 8:
+                winnings = bank + 50 * bet;
+                break;
+            case 9:
+                winnings = bank + 250 * bet;
+                break;
+            default:
+                System.out.println("Calc win");
+                break;
+        }
+    
+        p.getPanel().getGame().setBank(winnings);
+    }
+
     public static void main(String args[]){
-        System.out.println("Coming soon: Poker!");
         PokerFrame testCardFrame = new PokerFrame();
         int handCounter = 0;
         boolean inDebt = false;
         testCardFrame.setVisible(true);
         while(true){
-            System.out.println("Get bet");
             getBet(testCardFrame);
-            System.out.println("Deal cards");
-            testCardFrame.getPanel().resetGame();
-            System.out.println("Wait for user to select cards.");
+            testCardFrame.getPanel().resetGame(false);
             while(!testCardFrame.getPanel().getAccepted()){
                 // This doesn't work unless I have a print for some reason.
                 System.out.print("");
                 continue;
             }
-            System.out.println("User has selected.");
             testCardFrame.getPanel().setAccepted(false);
-            // calculate winnings or subtract loser's bet from bank
+            calcWin(testCardFrame);
         }
+
     }
 }
