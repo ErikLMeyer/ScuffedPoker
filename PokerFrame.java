@@ -8,6 +8,11 @@ public class PokerFrame extends JFrame implements ActionListener{
     private JMenu gameOptions, displayOptions;
     private JMenuItem newGame, exitGame;
     private Container pokerContainer;
+    private boolean reset;
+
+    public boolean getReset(){ return reset; }
+
+    public void setReset(boolean r){ reset = r; }
 
     public GamePanel getPanel(){ return poker; }
 
@@ -39,6 +44,7 @@ public class PokerFrame extends JFrame implements ActionListener{
         
         if (e.getSource() == newGame){
             poker.resetGame(true);
+            reset = true;
         }
         if (e.getSource() == exitGame){
             System.exit(0);

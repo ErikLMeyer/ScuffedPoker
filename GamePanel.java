@@ -59,6 +59,7 @@ public class GamePanel extends JPanel implements MouseListener{
         newGame();
         if (newBank){
             poker.setBank(200);
+            poker.setBet(0);
         }
     }
 
