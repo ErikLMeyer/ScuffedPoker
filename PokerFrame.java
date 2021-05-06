@@ -3,10 +3,12 @@ import java.awt.*;
 import java.awt.event.*;
 
 public class PokerFrame extends JFrame implements ActionListener{
+    private final String helpText = "Click on a card to discard it.\nClick it again to change" +
+                                    "your mind.\nClick the deck to deal cards.";
     private GamePanel poker;
     private JMenuBar pokerMenu;
     private JMenu gameOptions, displayOptions;
-    private JMenuItem newGame, exitGame;
+    private JMenuItem newGame, exitGame, help;
     private Container pokerContainer;
     private boolean reset;
 
@@ -26,10 +28,13 @@ public class PokerFrame extends JFrame implements ActionListener{
         displayOptions = new JMenu("Settings");
         newGame = new JMenuItem("New game");
         exitGame = new JMenuItem("Exit");
+        help = new JMenuItem("Help");
         newGame.addActionListener(this);
         exitGame.addActionListener(this);
+        help.addActionListener(this);
         gameOptions.add(newGame);
         gameOptions.add(exitGame);
+        displayOptions.add(help);
         pokerMenu.add(gameOptions);
         pokerMenu.add(displayOptions);
 
@@ -48,6 +53,9 @@ public class PokerFrame extends JFrame implements ActionListener{
         }
         if (e.getSource() == exitGame){
             System.exit(0);
+        }
+        if (e.getSource() == help){
+            JOptionPane.showMessageDialog(this, helpText, "Help", JOptionPane.PLAIN_MESSAGE);
         }
     }
 
